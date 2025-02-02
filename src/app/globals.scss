@@ -1,3 +1,14 @@
 .epr-header {
-  display: none;
+  .epr-search-container {
+    input {
+      width: 100% !important;
+      margin-bottom: 0 !important;
+    }
+    button {
+      top: calc(50% - 8px) !important;
+    }
+  }
+  .epr-category-nav {
+    display: none;
+  }
 }

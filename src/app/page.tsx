@@ -38,7 +38,6 @@ export default function Home() {
                 <EmojiPicker
                   style={{ position: "absolute", left: 0, top: 0, zIndex: 1 }}
                   open={isOpen}
-                  searchDisabled
                   skinTonesDisabled
                   onEmojiClick={(e) => {
                     setIcon(e.emoji);
