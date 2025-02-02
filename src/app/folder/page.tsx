@@ -18,6 +18,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     title: typeof title === "string" && !!title ? title : "Awesome folder title",
     icons: {
       icon: iconUrl,
+      apple: iconUrl,
+      shortcut: iconUrl,
     }
   };
 }
