@@ -1,95 +1,59 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+import "./globals.scss";
+
+import { useState } from "react";
+import { EmojiStyle, default as EmojiPicker } from "emoji-picker-react";
+import Twemoji from "react-twemoji";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [isOpen, setIsOpen] = useState(false);
+  const [title , setTitle] = useState("");
+  const [icon, setIcon] = useState("📁");
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  return (
+    <main className="scoped">
+      <section>
+        <form action="/folder">
+            <header>
+              <h2>📁 Folderion 📁</h2>
+              <p>Preudo folder for Orion browser</p>
+            </header>
+            <label htmlFor="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Awesome folder title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+            <label htmlFor="icon">Icon:</label>
+            <span style={{ display: "flex", gap: "1em"}}>
+              <span style={{ width: 64, paddingLeft: "1.25em", paddingRight: "1em", marginBottom: 0}}>
+                <Twemoji>{icon}</Twemoji>
+              </span>
+              <div style={{ flex: 1, margin: 0, position: "relative" }}>
+              <button
+                style={{ width: "100%", margin: 0, color: "rgb(18, 128, 235)", background: "transparent", border: "1px solid rgb(18, 128, 235)", cursor: "pointer" }}
+                onClick={(e) => {
+                  setIsOpen(!isOpen);
+                  e.preventDefault();
+                  return false;
+                }}>
+                  Select emoji
+                </button>
+                <EmojiPicker
+                  style={{ position: "absolute", left: 0, top: 0, zIndex: 1 }}
+                  open={isOpen}
+                  searchDisabled
+                  skinTonesDisabled
+                  onEmojiClick={(e) => {
+                    setIcon(e.emoji);
+                    setIsOpen(!isOpen);
+                  }}
+                  emojiStyle={EmojiStyle.TWITTER}
+                />
+              </div>
+            </span>
+            <input type="hidden" id="icon" name="icon" value={icon} />
+            <section style={{ marginTop: "2em" }}>
+              <button type="submit">Generate</button>
+            </section>
+        </form>
+        </section>
+    </main>
   );
 }
